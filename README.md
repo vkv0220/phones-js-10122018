@@ -1,1 +1,2 @@
-# phones-js-10122018
+# phone-catalogue-static
+Static pages of phone catalogue
