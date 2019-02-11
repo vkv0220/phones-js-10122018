@@ -1,20 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Title</title>
-  <link rel="stylesheet"
-        href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-        integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
-        crossorigin="anonymous">
-  <link rel="stylesheet" href="app.css">
-</head>
-<body>
+import { BaseComponent } from '../../common/components/base/base.component.js';
 
-<div>
-  <div>
+export class OnePhoneViewComponent extends BaseComponent{
 
-    <img class="phone" src="img/phones/motorola-xoom-with-wi-fi.0.jpg">
+  show(phone) {
+    this._phone = phone;
+    this._render();
+    super.show();
+  }
+
+  _render() {
+    this._element.innerHTML = `
+       <img class="phone" src="assets/img/phones/motorola-xoom-with-wi-fi.0.jpg">
 
     <button>Back</button>
     <button>Add to basket</button>
@@ -26,19 +22,19 @@
 
     <ul class="phone-thumbs">
       <li>
-        <img src="img/phones/motorola-xoom-with-wi-fi.0.jpg">
+        <img src="assets/img/phones/motorola-xoom-with-wi-fi.0.jpg">
       </li>
       <li>
-        <img src="img/phones/motorola-xoom-with-wi-fi.1.jpg">
+        <img src="assets/img/phones/motorola-xoom-with-wi-fi.1.jpg">
       </li>
       <li>
-        <img src="img/phones/motorola-xoom-with-wi-fi.2.jpg">
+        <img src="assets/img/phones/motorola-xoom-with-wi-fi.2.jpg">
       </li>
       <li>
-        <img src="img/phones/motorola-xoom-with-wi-fi.3.jpg">
+        <img src="assets/img/phones/motorola-xoom-with-wi-fi.3.jpg">
       </li>
       <li>
-        <img src="img/phones/motorola-xoom-with-wi-fi.4.jpg">
+        <img src="assets/img/phones/motorola-xoom-with-wi-fi.4.jpg">
       </li>
       <li>
         <img src="img/phones/motorola-xoom-with-wi-fi.5.jpg">
@@ -148,9 +144,6 @@
         <dd>Sensors: proximity, ambient light, barometer, gyroscope</dd>
       </li>
     </ul>
-  </div>
-</div>
-
-
-</body>
-</html>
+    `
+  }
+}
