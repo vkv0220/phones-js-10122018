@@ -21,6 +21,10 @@ export class PhonesPageComponent {
 
     this._phoneViewer = new OnePhoneViewComponent({
       element: this.element.querySelector('#item'),
+      onBackPressed: () => {
+        this._phoneViewer.hide();
+        this._phoneCatalog.show();
+      }
     });
 
   }

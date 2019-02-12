@@ -1,16 +1,24 @@
 import { BaseComponent } from '../../common/components/base/base.component.js';
 
 export class OnePhoneViewComponent extends BaseComponent{
+  constructor ({element: phone, onBackPressed: onBackPressed}) {
+        super(phone);
+        this._element = phone;
+        this.onBackSelect = onBackPressed;
+        this._render();
+        super.show();
+        this._element.addEventListener('click', this._handleClickBack.bind(this));
+  }
 
-  show(phone) {
-    this._phone = phone;
-    this._render();
-    super.show();
+  _handleClickBack(event) {
+      const backButton = this._element.querySelectorAll('button')[0];
+      if (event.target.tagName != 'BUTTON') return;
+      if (event.target === backButton)this.onBackSelect();
   }
 
   _render() {
     this._element.innerHTML = `
-       <img class="phone" src="assets/img/phones/motorola-xoom-with-wi-fi.0.jpg">
+    <img class="phone" src="assets/img/phones/motorola-xoom-with-wi-fi.0.jpg">
 
     <button>Back</button>
     <button>Add to basket</button>
@@ -37,7 +45,7 @@ export class OnePhoneViewComponent extends BaseComponent{
         <img src="assets/img/phones/motorola-xoom-with-wi-fi.4.jpg">
       </li>
       <li>
-        <img src="img/phones/motorola-xoom-with-wi-fi.5.jpg">
+        <img src="assets/img/phones/motorola-xoom-with-wi-fi.5.jpg">
       </li>
     </ul>
 
