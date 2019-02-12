@@ -12,7 +12,7 @@ export class PhonesCatalogComponent extends BaseComponent {
 
   _handleClick({ target }) {
     const liElement = target.closest('.thumbnail');
-    const linkToDetails = target.closest('.thumb');
+    const linkToDetails = target.closest('.thumb>img');
     const linkToDetailsByName = target.closest('.phone-name');
     const btnAddCart = target.closest('.btn');
     if (!linkToDetails && !linkToDetailsByName && !btnAddCart) {

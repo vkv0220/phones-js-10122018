@@ -25,9 +25,6 @@ export class ShoppingCartComponent extends BaseComponent {
         this._element.innerHTML = `
         <p>Shopping Cart</p>
         <ul>
-          <li>Phone 1 <span>✘</span></li>
-          <li>Phone 2 <span>✘</span></li>
-          <li>Phone 3 <span>✘</span></li>
         </ul>
     `};
 }
