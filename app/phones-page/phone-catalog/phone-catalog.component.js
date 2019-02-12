@@ -1,20 +1,30 @@
 import { BaseComponent } from '../../common/components/base/base.component.js';
 
 export class PhonesCatalogComponent extends BaseComponent {
-  constructor({ element, phones, onPhoneSelect }) {
+  constructor({ element, phones, onPhoneSelect, onPhoneAdd }) {
     super({ element });
     this.phones = phones;
     this.onPhoneSelect = onPhoneSelect;
+    this.onPhoneAdd = onPhoneAdd;
     this._render();
-    this._element.addEventListener('click', this._handleClick.bind(this))
+    this._element.addEventListener('click', this._handleClick.bind(this));
   }
 
   _handleClick({ target }) {
     const liElement = target.closest('.thumbnail');
-    if (!liElement) {
+    const linkToDetails = target.closest('.thumb');
+    const linkToDetailsByName = target.closest('.phone-name');
+    const btnAddCart = target.closest('.btn');
+    if (!linkToDetails && !linkToDetailsByName && !btnAddCart) {
       return;
     }
-    this.onPhoneSelect(liElement.dataset.id);
+    if (target === btnAddCart) {
+          this.onPhoneAdd(liElement.querySelector('.phone-name').innerText);
+          //btnAddCart.classList.add('btn-success');
+    }
+    if (target === linkToDetails || target === linkToDetailsByName) {
+        this.onPhoneSelect(liElement.dataset.id);
+    }
   }
 
   _render() {
@@ -30,7 +40,7 @@ export class PhonesCatalogComponent extends BaseComponent {
               Add
             </a>
           </div>
-          <a href="#!/phones/${phone.id}">${phone.name}</a>
+          <a href="#!/phones/${phone.id}" class="phone-name">${phone.name}</a>
           <p>${phone.snippet}</p>
         </li>`
     }, '')}

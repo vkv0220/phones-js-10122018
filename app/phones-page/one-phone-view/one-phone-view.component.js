@@ -1,13 +1,14 @@
 import { BaseComponent } from '../../common/components/base/base.component.js';
 
 export class OnePhoneViewComponent extends BaseComponent{
-  constructor ({element, phone, onBackPressed}) {
+  constructor ({element, phone, onBackPressed, onPhoneAdd}) {
         super(phone);
         this._element = element;
         this.onBackSelect = onBackPressed;
+        this.onPhoneAdd = onPhoneAdd;
         this.phone = phone;
         this._render();
-        super.show();
+        // super.show();
         this._element.addEventListener('click', this._handleClickBack.bind(this));
   }
 
@@ -18,6 +19,9 @@ export class OnePhoneViewComponent extends BaseComponent{
       if (event.target === backButton)this.onBackSelect();
       if (event.target.closest('img')) {
           this._element.querySelector('.phone').src = event.target.closest('img').src;
+      }
+      if (event.target === this._element.querySelectorAll('button')[1]) {
+          this.onPhoneAdd(this.phone.name);
       }
   }
 

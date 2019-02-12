@@ -1,6 +1,7 @@
 import { PhonesCatalogComponent } from './phone-catalog/phone-catalog.component.js';
 import { OnePhoneViewComponent } from './one-phone-view/one-phone-view.component.js';
 import { PhonesPageService } from './phones-page.service.js';
+import { ShoppingCartComponent } from "./shopping-cart/shopping-cart.component.js";
 
 export class PhonesPageComponent {
   constructor({ element }) {
@@ -9,6 +10,7 @@ export class PhonesPageComponent {
 
     this._phoneService = new PhonesPageService();
 
+
     this._phoneCatalog = new PhonesCatalogComponent({
       element: this.element.querySelector('#catalog'),
       phones: this._phoneService.getAllPhones(),
@@ -16,6 +18,9 @@ export class PhonesPageComponent {
         const phoneDetails = this._phoneService.getPhonesById(phoneId);
         this._phoneCatalog.hide();
         this._phoneViewer.show(phoneDetails);
+      },
+      onPhoneAdd: (phoneId) => {
+        this._cartViewer.addItem(phoneId);
       }
     });
 
@@ -25,7 +30,16 @@ export class PhonesPageComponent {
       onBackPressed: () => {
         this._phoneViewer.hide();
         this._phoneCatalog.show();
-      }
+      },
+        onPhoneAdd: (phoneId) => {
+        this._cartViewer.addItem(phoneId);
+        }
+    });
+
+    this._phoneViewer.hide();
+
+    this._cartViewer = new ShoppingCartComponent({
+      element: this.element.querySelector('#shopping-cart'),
     });
 
   }
@@ -50,13 +64,8 @@ export class PhonesPageComponent {
         </p>
       </section>
 
-      <section>
-        <p>Shopping Cart</p>
-        <ul>
-          <li>Phone 1</li>
-          <li>Phone 2</li>
-          <li>Phone 3</li>
-        </ul>
+      <section id="shopping-cart">
+        
       </section>
     </div>
 
