@@ -1,10 +1,11 @@
 import { BaseComponent } from '../../common/components/base/base.component.js';
 
 export class OnePhoneViewComponent extends BaseComponent{
-  constructor ({element: phone, onBackPressed: onBackPressed}) {
+  constructor ({element, phone, onBackPressed}) {
         super(phone);
-        this._element = phone;
+        this._element = element;
         this.onBackSelect = onBackPressed;
+        this.phone = phone;
         this._render();
         super.show();
         this._element.addEventListener('click', this._handleClickBack.bind(this));
@@ -18,35 +19,18 @@ export class OnePhoneViewComponent extends BaseComponent{
 
   _render() {
     this._element.innerHTML = `
-    <img class="phone" src="assets/img/phones/motorola-xoom-with-wi-fi.0.jpg">
+    <img class="phone" src="assets/${this.phone.images[0]}">
 
     <button>Back</button>
     <button>Add to basket</button>
 
-
-    <h1>Motorola XOOM™ with Wi-Fi</h1>
-
-    <p>Motorola XOOM with Wi-Fi has a super-powerful dual-core processor and Android™ 3.0 (Honeycomb) — the Android platform designed specifically for tablets. With its 10.1-inch HD widescreen display, you’ll enjoy HD video in a thin, light, powerful and upgradeable tablet.</p>
+    <h1>${this.phone.name}</h1>
+    <p>${this.phone.description}</p>
 
     <ul class="phone-thumbs">
-      <li>
-        <img src="assets/img/phones/motorola-xoom-with-wi-fi.0.jpg">
-      </li>
-      <li>
-        <img src="assets/img/phones/motorola-xoom-with-wi-fi.1.jpg">
-      </li>
-      <li>
-        <img src="assets/img/phones/motorola-xoom-with-wi-fi.2.jpg">
-      </li>
-      <li>
-        <img src="assets/img/phones/motorola-xoom-with-wi-fi.3.jpg">
-      </li>
-      <li>
-        <img src="assets/img/phones/motorola-xoom-with-wi-fi.4.jpg">
-      </li>
-      <li>
-        <img src="assets/img/phones/motorola-xoom-with-wi-fi.5.jpg">
-      </li>
+       ${this.phone.images.reduce((item, next) => {
+        return `${item} <li><img src="assets/${next}"></li>`;
+        },'')}
     </ul>
 
     <ul class="specs">
@@ -54,7 +38,7 @@ export class OnePhoneViewComponent extends BaseComponent{
         <span>Availability and Networks</span>
         <dl>
           <dt>Availability</dt>
-          <dd></dd>
+          ${this.phone.availability.map((item)=> `<dd>${item}</dd>`).join('')}
         </dl>
       </li>
       <li>
@@ -149,7 +133,7 @@ export class OnePhoneViewComponent extends BaseComponent{
       </li>
       <li>
         <span>Additional Features</span>
-        <dd>Sensors: proximity, ambient light, barometer, gyroscope</dd>
+        <dd>${this.phone.additionalFeatures}</dd>
       </li>
     </ul>
     `
