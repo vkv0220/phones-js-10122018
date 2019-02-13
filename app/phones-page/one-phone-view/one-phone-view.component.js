@@ -79,9 +79,9 @@ export class OnePhoneViewComponent extends BaseComponent{
           <dt>Bluetooth</dt>
           <dd>${this.phone.connectivity.bluetooth}</dd>
           <dt>Infrared</dt>
-          <dd>${this.phone.connectivity.infrared}✘</dd>
+          <dd>${Boolean(this.phone.connectivity.infrared) ? '✓' : '✘' }</dd>
           <dt>GPS</dt>
-          <dd>${this.phone.connectivity.gps}✓</dd>
+          <dd>${Boolean(this.phone.connectivity.gps) ? '✓' : '✘'}</dd>
         </dl>
       </li>
       <li>
@@ -110,7 +110,7 @@ export class OnePhoneViewComponent extends BaseComponent{
           <dt>Screen resolution</dt>
           <dd>${this.phone.display.screenResolution}</dd>
           <dt>Touch screen</dt>
-          <dd>${this.phone.display.touchScreen}✓</dd>
+          <dd>${Boolean(this.phone.display.touchScreen) ? '✓' : '✘'}</dd>
         </dl>
       </li>
       <li>
@@ -123,9 +123,9 @@ export class OnePhoneViewComponent extends BaseComponent{
           <dt>Audio / headphone jack</dt>
           <dd>${this.phone.hardware.audioJack}</dd>
           <dt>FM Radio</dt>
-          <dd>${this.phone.hardware.fmRadio}✘</dd>
+          <dd>${Boolean(this.phone.hardware.fmRadio) ? '✓' : '✘'}</dd>
           <dt>Accelerometer</dt>
-          <dd>${this.phone.hardware.accelerometer}✓</dd>
+          <dd>${Boolean(this.phone.hardware.accelerometer) ? '✓' : '✘'}✓</dd>
         </dl>
       </li>
       <li>
