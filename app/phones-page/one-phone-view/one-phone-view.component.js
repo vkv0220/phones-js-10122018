@@ -3,45 +3,54 @@ import { BaseComponent } from '../../common/components/base/base.component.js';
 export class OnePhoneViewComponent extends BaseComponent{
   constructor ({element, phone, onBackPressed, onPhoneAdd}) {
         super({element}); //this._element = element;
-        this.onBackSelect = onBackPressed;
-        this.onPhoneAdd = onPhoneAdd;
-        //this.phone = phone;
-        //this._render();
-        // super.show();
-        this._element.addEventListener('click', this._handleClickBack.bind(this));
+        // this.onBackSelect = onBackPressed;
+        // this.onPhoneAdd = onPhoneAdd;
+   //     this._element.addEventListener('click', this._handleClickBack.bind(this));
+        this.on('click', '.go-back', ()=> {
+            this.emit('back')
+        });
+        this.on('click', '.add-to-cart', ()=> {
+            this.emit('add', this.phone.name);
+        });
+      this.on('click', '.image-link', (event) => {
+          this._currentImage = event.delegateTarget.src;
+          this._render();
+      });
   }
     show(phone) {
         this.phone = phone;
+        this._currentImage = `assets/${this.phone.images[0]}`;
         this._render();
         super.show();
     }
 
-  _handleClickBack(event) {
-      const backButton = this._element.querySelectorAll('button')[0];
-      const phoneThumbs = this._element.querySelectorAll('.phone-thimbs');
-      if (event.target.tagName != 'BUTTON' && event.target.tagName != 'IMG') return;
-      if (event.target === backButton) this.onBackSelect();
-      if (event.target.closest('img')) {
-          this._element.querySelector('.phone').src = event.target.closest('img').src;
-      }
-      if (event.target === this._element.querySelectorAll('button')[1]) {
-          this.onPhoneAdd(this.phone.name);
-      }
-  }
+  // _handleClickBack(event) {
+  //     const backButton = this._element.querySelectorAll('button')[0];
+  //     const phoneThumbs = this._element.querySelectorAll('.phone-thimbs');
+  //     if (event.target.tagName != 'BUTTON' && event.target.tagName != 'IMG') return;
+  //     if (event.target === backButton) this.onBackSelect();
+  //     if (event.target.closest('img')) {
+  //         this._element.querySelector('.phone').src = event.target.closest('img').src;
+  //     }
+  //     if (event.target === this._element.querySelectorAll('button')[1]) {
+  //         this.onPhoneAdd(this.phone.name);
+  //     }
+  // }
 
   _render() {
-    this._element.innerHTML = `
-    <img class="phone" src="assets/${this.phone.images[0]}">
 
-    <button>Back</button>
-    <button>Add to basket</button>
+    this._element.innerHTML = `
+    <img class="phone" src="${this._currentImage}">
+
+    <button class="go-back">Back</button>
+    <button class="add-to-cart">Add to basket</button>
 
     <h1>${this.phone.name}</h1>
     <p>${this.phone.description}</p>
 
     <ul class="phone-thumbs">
        ${this.phone.images.reduce((item, next) => {
-        return `${item} <li><img src="assets/${next}"></li>`;
+        return `${item} <li><img class="image-link" src="assets/${next}"></li>`;
         },'')}
     </ul>
 
